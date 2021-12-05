@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Blog = ({blog, updateBlog, deleteBlog}) => {
+const Blog = ({ blog, updateBlog, deleteBlog }) => {
   /*
   const usern = JSON.stringify(user)
   console.log(usern)
@@ -35,11 +35,11 @@ const Blog = ({blog, updateBlog, deleteBlog}) => {
   const [infoVisible, setInfoVisible] = useState(false)
 
   const blogStyle = {
-  paddingTop: 10,
-  paddingLeft: 2,
-  border: 'solid',
-  borderWidth: 1,
-  marginBottom: 5
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
   }
   const hideWhenVisible = { display: infoVisible ? 'none' : '' }
   const showWhenVisible = { display: infoVisible ? '' : 'none' }
@@ -48,30 +48,30 @@ const Blog = ({blog, updateBlog, deleteBlog}) => {
     <div style={blogStyle}>
       <div style={hideWhenVisible}>
         <p>
-          {blog.title} 
+          {blog.title}
           <button onClick={() => setInfoVisible(true)}>view</button>
         </p>
       </div>
       <div style={showWhenVisible}>
         <p>
-        {blog.title} 
-        <button onClick={() => setInfoVisible(false)}>hide</button>
+          {blog.title}
+          <button onClick={() => setInfoVisible(false)}>hide</button>
         </p>
         <p>
-        {blog.url} 
+          {blog.url}
         </p>
         <p>
-        likes: {blog.likes} 
-        <button onClick={() => likePost(blog.user)}>like</button>
+        likes: {blog.likes}
+          <button onClick={() => likePost(blog.user)}>like</button>
         </p>
         <p>
-        {blog.author}
+          {blog.author}
         </p>
         <p>
-        <button onClick={() => removeBlog()}>remove</button>
+          <button onClick={() => removeBlog()}>remove</button>
         </p>
       </div>
-    </div>  
+    </div>
   )
 
 }

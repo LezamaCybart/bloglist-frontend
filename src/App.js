@@ -22,7 +22,7 @@ const App = () => {
       blogs.sort((a,b) => b.likes - a.likes)
       setBlogs(blogs)
     }
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const App = () => {
   const deleteBlog = (id) => {
     blogService
       .deleteB(id)
-      .then(returnedBlog => {
+      .then(() => {
         setBlogs(blogs.filter(blog => blog.id !==  id))
       })
   }
@@ -104,28 +104,28 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-      <Notification message={errorMessage}/>
-      <form onSubmit={handleLogin}>
-        <div>
+        <Notification message={errorMessage}/>
+        <form onSubmit={handleLogin}>
+          <div>
           username
             <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div>
           password
             <input
-            type="text"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-      <button type="submit">login</button>
-      </form>
+              type="text"
+              value={password}
+              name="Password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button type="submit">login</button>
+        </form>
       </div>
     )
   }
