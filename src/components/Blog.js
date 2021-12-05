@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-const Blog = ({blog, updateBlog}) => {
+const Blog = ({blog, updateBlog, deleteBlog}) => {
   /*
   const usern = JSON.stringify(user)
   console.log(usern)
@@ -13,6 +13,12 @@ const Blog = ({blog, updateBlog}) => {
   getUser(blog)
   console.log(blog.user)
   */
+
+  const removeBlog = () => {
+    if(window.confirm(`remove ${blog.title} by ${blog.author}?`)) {
+      deleteBlog(blog.id)
+    }
+  }
 
   const likePost = (user) => {
     const newBlog = {
@@ -54,12 +60,13 @@ const Blog = ({blog, updateBlog}) => {
         </p>
         <p>
         likes: {blog.likes} 
+        <button onClick={() => likePost(blog.user)}>like</button>
         </p>
         <p>
         {blog.author}
         </p>
-        <button onClick={() => likePost(blog.user)}>like</button>
         <p>
+        <button onClick={() => removeBlog()}>remove</button>
         </p>
       </div>
     </div>  

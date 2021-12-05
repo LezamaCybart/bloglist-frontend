@@ -15,9 +15,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
 
   const blogFormRef = useRef()
-  const compareLikes = (blogA, blogB) => {
-    return (blogA.likes - blogB.likes)
-  }
+
 
   useEffect(() => {
     blogService.getAll().then(blogs => {
@@ -34,6 +32,14 @@ const App = () => {
       setUser(user)
     }
   }, [])
+
+  const deleteBlog = (id) => {
+    blogService
+      .deleteB(id)
+      .then(returnedBlog => {
+        setBlogs(blogs.filter(blog => blog.id !==  id))
+      })
+  }
 
   const updateBlog = (id, blogObject) => {
     blogService
@@ -52,12 +58,18 @@ const App = () => {
       })
   }
   const handleNewBlogNotif = () => {
-    setErrorMessage(`${blogs.at(-1).title} by author ${blogs.at(-1).author} was added`)
+    setErrorMessage(`${blogs.at(-1).title} by author ${blogs.at(-1).author} was added`) //FIX
     setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
   }
 
+  const tokenStored = window.localStorage.getItem('loggedBlogappUser')
+  if (tokenStored !== null) {
+    const token = JSON.parse(tokenStored).token
+    blogService.setToken(token)
+    console.log(token)
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -129,7 +141,7 @@ const App = () => {
       </Togglable>
       <button onClick={handleLogOut}>logout</button>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+        <Blog key={blog.id} blog={blog} deleteBlog={deleteBlog} updateBlog={updateBlog}/>
       )}
     </div>
   )
