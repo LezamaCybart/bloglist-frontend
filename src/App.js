@@ -5,10 +5,12 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  console.log(user)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -24,6 +26,34 @@ const App = () => {
     }
   }, [])
 
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+    }
+
+    blogService
+      .create(blogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+      })
+  }
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
+  }
+  const handleAuthorChange = (event) => {
+    setNewAuthor(event.target.value)
+  }
+  const handleUrlChange = (event) => {
+    setNewUrl(event.target.value)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -34,6 +64,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -73,13 +104,30 @@ const App = () => {
         </div>
       <button type="submit">login</button>
       </form>
-
     )
   }
   return (
     <div>
       <h2>blogs</h2>
       <p>{user.name} logged in</p>
+      <form onSubmit={addBlog}>
+        title
+        <input
+          value={newTitle}
+          onChange={handleTitleChange}
+        />
+        author
+        <input
+          value={newAuthor}
+          onChange={handleAuthorChange}
+        />
+        url
+        <input
+          value={newUrl}
+          onChange={handleUrlChange}
+        />
+      <button type="submit">add Blog</button>
+      </form>
       <button onClick={handleLogOut}>logout</button>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
