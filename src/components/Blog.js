@@ -1,5 +1,28 @@
 import React, {useState} from 'react'
-const Blog = ({blog}) => {
+const Blog = ({blog, updateBlog}) => {
+  /*
+  const usern = JSON.stringify(user)
+  console.log(usern)
+  const getUser = async (blog) => {
+    const user = await blog.user
+    if (user !== undefined) {
+      const username = await user.username
+      blog.user = username
+    }
+  }
+  getUser(blog)
+  console.log(blog.user)
+  */
+
+  const likePost = (user) => {
+    const newBlog = {
+      user: user.id,
+      likes: (blog.likes + 1),
+      title: blog.title,
+      author: blog.author
+    }
+    updateBlog(blog.id, newBlog)
+  }
 
   const [infoVisible, setInfoVisible] = useState(false)
 
@@ -34,6 +57,9 @@ const Blog = ({blog}) => {
         </p>
         <p>
         {blog.author}
+        </p>
+        <button onClick={() => likePost(blog.user)}>like</button>
+        <p>
         </p>
       </div>
     </div>  
