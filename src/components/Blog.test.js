@@ -18,9 +18,7 @@ describe('toggleable behavior', () => {
   const mockHandler = jest.fn()
   beforeEach(() => {
     component = render(
-      <Togglable buttonLabel="show...">
-        <Blog blog={blog} updateBlog={mockHandler} deleteBlog={mockHandler}/>
-      </Togglable>
+      <Blog blog={blog} updateBlog={mockHandler} deleteBlog={mockHandler}/>
     )
   })
   /*
@@ -49,5 +47,13 @@ describe('toggleable behavior', () => {
     expect(titleDiv).toHaveTextContent('ASOS')
     expect(titleDiv).toHaveStyle('display: block')
     expect(infoDiv).toHaveStyle('display: none')
+  })
+
+  test('blog info is shown when toggle button  is clicked', () => {
+    const button = component.getByText('view')
+    fireEvent.click(button)
+
+    const infoDiv = component.container.querySelector('.infoDiv')
+    expect(infoDiv).toHaveStyle('display: block')
   })
 })
