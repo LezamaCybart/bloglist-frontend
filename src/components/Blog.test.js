@@ -56,4 +56,29 @@ describe('toggleable behavior', () => {
     const infoDiv = component.container.querySelector('.infoDiv')
     expect(infoDiv).toHaveStyle('display: block')
   })
+
+})
+test('clicking like button twice makes prop function get called twice', () => {
+  const blog = {
+    user: "userid",
+    title: 'ASOS',
+    author: 'GRRM',
+    url: 'asoaif.com',
+    likes: 2
+  }
+
+  const mockHandler = jest.fn()
+  const updateText = jest.fn()
+
+  const component = render(
+    <Blog blog={blog} updateBlog={updateText} deleteBlog={mockHandler}/>
+  )
+
+
+  const likeButton = component.getByText('like')
+  console.log(prettyDOM(likeButton))
+  fireEvent.click(likeButton)
+  fireEvent.click(likeButton)
+
+  expect(updateText.mock.calls).toHaveLength(2)
 })
