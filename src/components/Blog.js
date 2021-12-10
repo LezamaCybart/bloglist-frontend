@@ -45,14 +45,14 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   const showWhenVisible = { display: infoVisible ? '' : 'none' }
 
   return (
-    <div style={blogStyle}>
-      <div style={hideWhenVisible}>
+    <div style={blogStyle} className='blog'>
+      <div style={hideWhenVisible} className='titleDiv'>
         <p>
           {blog.title}
           <button onClick={() => setInfoVisible(true)}>view</button>
         </p>
       </div>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='infoDiv'>
         <p>
           {blog.title}
           <button onClick={() => setInfoVisible(false)}>hide</button>
